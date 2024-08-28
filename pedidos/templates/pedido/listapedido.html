@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <h1>Seus Pedidos</h1>
+    <table>
+        <thead data-theme="dark">
+            <tr>
+                <th>ID do Pedido</th>
+                <th>Data</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.criado }}</td>
+                <td>R$ {{ pedido.get_total }}</td>
+                <td>
+                    {% if pedido.pago %}
+                        Pago
+                    {% else %}
+                        Pendente
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'detalhes_pedido' pedido.pk %}">Ver detalhes</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
